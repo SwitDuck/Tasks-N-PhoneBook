@@ -76,10 +76,17 @@ class NmeaRepr:
 
 class Network:
     @staticmethod
-    def Send_v(data: tuple, http_addr: str, port: int):
+    def Send_v(data: dict, http_addr: str, port: int, endpoint: str = "/gps"):
         import requests
-        response = requests.post(f'http://{http_addr}:{port}', json=data)
-
+        url = f'http://{http_addr}:{port}{endpoint}'
+        print(f"Отправка на URL: {url}")
+        try:
+            response = requests.post(url, json=data, timeout=5)
+            print(f"Ответ сервера: {response.status_code} - {response.text}")
+            return response
+        except requests.exceptions.ConnectionError as e:
+            print(f"Ошибка подключения: {e}")
+            return None
         
             
             

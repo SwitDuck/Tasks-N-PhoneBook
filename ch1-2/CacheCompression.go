@@ -207,11 +207,16 @@ func main() {
 	*/
 
 	http.HandleFunc("/gps", handleGPS)
-    
-    // Показываем где будет файл
-    currentDir, _ := os.Getwd()
-    log.Printf("🚀 Сервер запущен на :8080")
-    log.Printf("📁 CSV файл будет создан в: %s/track_data.csv", currentDir)
-    
-    log.Fatal(http.ListenAndServe(":8080", nil))
+	http.HandleFunc("/time", timeHandler)
+	http.HandleFunc("/", defaultHandler)
+
+	currentDir, _ := os.Getwd()
+	log.Printf("Сервер запущен на порту 8080")
+	log.Printf("CSV файл будет создан в: %s/track_data.csv", currentDir)
+	log.Printf("GPS endpoint: http://localhost:8080/gps")
+
+	err := http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal("Ошибка запуска сервера:", err)
+	}
 }
