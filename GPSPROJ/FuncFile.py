@@ -1,7 +1,7 @@
 import adbutils as adb
 
 class Consts:
-    def __init__(self, adb_ip = str, adb_port = int):
+    def __init__(self, adb_ip: str, adb_port: int):
         self.adb_ip = adb_ip
         self.adb_port = adb_port
         self.lat = 0

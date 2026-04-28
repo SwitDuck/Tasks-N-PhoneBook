@@ -164,6 +164,7 @@ func (ct *CachedTime) ReadFromBigFile(filepath string) ([][]string, error) {
 }
 
 func main() {
+	/*
 	cache := NewCache(10, 15)
 
 	// СОЗДАЁМ КЛЮЧИ (пользователь сам придумывает)
@@ -203,4 +204,14 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	*/
+
+	http.HandleFunc("/gps", handleGPS)
+    
+    // Показываем где будет файл
+    currentDir, _ := os.Getwd()
+    log.Printf("🚀 Сервер запущен на :8080")
+    log.Printf("📁 CSV файл будет создан в: %s/track_data.csv", currentDir)
+    
+    log.Fatal(http.ListenAndServe(":8080", nil))
 }
